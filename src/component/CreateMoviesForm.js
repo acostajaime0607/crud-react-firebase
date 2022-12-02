@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import React, { useEffect, useState } from "react";
 import { collection, addDoc, doc, updateDoc, getDoc } from "firebase/firestore";
 import { db } from "../firebaseConfig/firebase";
@@ -156,7 +157,21 @@ export default function CreateMoviesForm({ type }) {
     });
   };
 
+  const obtenerMoviesUpdate = async () => {
+    const moviesUpdate = await getDoc(doc(db, "movies", id));
 
+    if (moviesUpdate.exists()) {
+      console.log(moviesUpdate.data());
+    } else {
+      console.log("No exite la pelicual");
+    }
+  };
+
+  useEffect(() => {
+    if (type === "editar") {
+      obtenerMoviesUpdate();
+    }
+  }, [type]);
 
   return (
     <div>
