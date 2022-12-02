@@ -13,8 +13,6 @@ const MySwal = withReactContent(Swal);
 export default function CreateMoviesForm({ type }) {
   const { id } = useParams();
 
-  console.log(id);
-
   const [value, setvalue] = useState({
     titulo: "",
     lenguaje: "",
@@ -73,6 +71,7 @@ export default function CreateMoviesForm({ type }) {
       };
 
       updateDoc(movies, data);
+      alertSucces();
     }
 
     navigate("/");
@@ -161,7 +160,15 @@ export default function CreateMoviesForm({ type }) {
     const moviesUpdate = await getDoc(doc(db, "movies", id));
 
     if (moviesUpdate.exists()) {
-      console.log(moviesUpdate.data());
+      setvalue({
+        titulo: moviesUpdate.data().titulo,
+        lenguaje: moviesUpdate.data().lenguaje,
+        rating: Number(moviesUpdate.data().rating),
+        fecha: moviesUpdate.data().lanzamiento,
+        resumen: moviesUpdate.data().resumen,
+        calificacion: Number(moviesUpdate.data().cantidad_votos),
+      });
+      setadulto(moviesUpdate.data().adulto);
     } else {
       console.log("No exite la pelicual");
     }
@@ -293,6 +300,7 @@ export default function CreateMoviesForm({ type }) {
               <div className="form-check form-switch mt-4">
                 <input
                   value={adulto}
+                  checked={adulto}
                   onChange={(e) => setadulto(e.target.checked)}
                   className="form-check-input"
                   type="checkbox"

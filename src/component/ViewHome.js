@@ -18,12 +18,15 @@ const MySwal = withReactContent(Swal);
 
 export default function ViewHome() {
   const [movies, setMovies] = useState([]);
+  const [loading, setloading] = useState(false);
 
   const moviesCollection = collection(db, "movies");
 
   const getMovies = async () => {
+    setloading(true);
     const data = await getDocs(moviesCollection);
     setMovies(data.docs.map((doc) => ({ ...doc.data(), id: doc.id })));
+    setloading(false);
   };
 
   const deleteMovies = async (id) => {
@@ -56,7 +59,7 @@ export default function ViewHome() {
   return (
     <div>
       <Header />
-      <div className="container">
+      <div className="container mt-4">
         <div className="row">
           {movies.length !== 0 &&
             movies.map((data) => (
@@ -66,9 +69,17 @@ export default function ViewHome() {
             ))}
         </div>
 
-        {movies.length === 0 && (
+        {!loading && movies.length === 0 && (
           <div className="text-center m-5">
             <h2>No hay peliculas registradas</h2>
+          </div>
+        )}
+
+        {loading && movies.length === 0 && (
+          <div className="d-flex justify-content-center">
+            <div className="spinner-border" role="status">
+              <span className="sr-only">Loading...</span>
+            </div>
           </div>
         )}
       </div>
