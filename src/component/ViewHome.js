@@ -1,13 +1,6 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import React, { useEffect, useState } from "react";
-import {
-  collection,
-  getDoc,
-  getDocs,
-  deleteDoc,
-  doc,
-} from "@firebase/firestore";
-import { async } from "@firebase/util";
+import { collection, getDocs, deleteDoc, doc } from "@firebase/firestore";
 import { db } from "../firebaseConfig/firebase";
 import CardMovies from "./CardMovies";
 import Header from "./Header";

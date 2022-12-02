@@ -2,7 +2,6 @@
 import React, { useEffect, useState } from "react";
 import { collection, addDoc, doc, updateDoc, getDoc } from "firebase/firestore";
 import { db } from "../firebaseConfig/firebase";
-import { async } from "@firebase/util";
 import { Link, useNavigate, useParams } from "react-router-dom";
 
 import withReactContent from "sweetalert2-react-content";
