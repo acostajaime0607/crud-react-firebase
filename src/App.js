@@ -1,23 +1,25 @@
-import logo from './logo.svg';
-import './App.css';
+import "./App.css";
+import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { async } from "@firebase/util";
+import ViewHome from "./component/ViewHome";
+import CreateMoviesForm from "./component/CreateMoviesForm";
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div className="container mt-5">
+      <BrowserRouter>
+        <Routes>
+          <Route path="/" element={<ViewHome />} />
+          <Route
+            path="/editar-movies/:id"
+            element={<CreateMoviesForm type={"editar"} />}
+          />
+          <Route
+            path="/crear-movies"
+            element={<CreateMoviesForm type={"crear"} />}
+          />
+        </Routes>
+      </BrowserRouter>
     </div>
   );
 }
